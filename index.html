@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mouse</title>
+  <style>
+    body {
+      background: #ccc;
+    }
+
+    .cursor {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10000;
+      background: #fff;
+      border-radius: 50%;
+      mix-blend-mode: overlay;
+      opacity: .5;
+      filter: blur(75px);
+      transition: transform linear .4s;
+      width: 480px;
+      height: 480px;
+    }
+
+    .content {
+      width: 100%;
+      height: 300vh;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content"></div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'
+    integrity='sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=='
+    crossorigin='anonymous'></script>
+  <script>
+    const cursorTag = `
+      <div class="cursor"></div>
+    `;
+
+    let cursorBig = null;
+
+    document.body.insertAdjacentHTML("afterbegin", cursorTag);
+    cursorBig = document.querySelector(".cursor");
+    console.log(cursorBig.clientWidth)
+
+    const onMouseMove = (e) => {
+      gsap.to(cursorBig,
+        {
+          x: e.x - cursorBig.clientWidth / 2,
+          y: e.y - cursorBig.clientHeight / 2,
+          duration: 0.1,
+        }
+      );
+    }
+
+    // 滑鼠移動
+    window.addEventListener("mousemove", onMouseMove);
+  </script>
+</body>
+
+</html>
